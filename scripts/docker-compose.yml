@@ -1,9 +1,11 @@
 services:
   db:
     image: postgres
-    container_name: sqlserver
+    container_name: postgres
     restart: always
     environment:
-      POSTGRES_PASSWORD: Bi@nc@
+      POSTGRES_PASSWORD: bianca23
+      POSTGRES_USER: cinesystem
+      POSTGRES_DB: cinema
     ports:
       - "5432:5432"

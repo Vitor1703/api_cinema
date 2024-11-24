@@ -11,7 +11,7 @@ public class CinemaDbContextFactory : IDesignTimeDbContextFactory<CinemaDbContex
         var optionsBuilder = new DbContextOptionsBuilder<CinemaDbContext>();
 
         // Defina a conexão com o PostgreSQL
-        optionsBuilder.UseNpgsql("Host=localhost;Database=postgres;Username=postgres;Password=Bi@nc@");
+        optionsBuilder.UseNpgsql("Host=localhost;Database=cinema;Username=cinesystem;Password=bianca23");
 
         return new CinemaDbContext(optionsBuilder.Options);
     }
