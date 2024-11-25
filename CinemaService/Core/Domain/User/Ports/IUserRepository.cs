@@ -1,6 +1,6 @@
-﻿using Domain.User.Entities;
+﻿using Domain.Users.Entities;
 
-namespace Domain.User.Ports
+namespace Domain.Users.Ports
 {
     public interface IUserRepository
     {

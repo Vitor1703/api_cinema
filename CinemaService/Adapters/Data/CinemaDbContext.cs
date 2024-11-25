@@ -1,5 +1,5 @@
-﻿using Domain.User;
-using Domain.User.Entities;
+﻿using Data.Users;
+using Domain.Users.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Data
@@ -8,7 +8,7 @@ namespace Data
     {
         public CinemaDbContext(DbContextOptions<CinemaDbContext> options) : base(options) { }
 
-        public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

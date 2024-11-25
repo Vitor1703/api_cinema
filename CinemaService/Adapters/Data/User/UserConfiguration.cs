@@ -1,8 +1,8 @@
-using Domain.User.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Domain.Users.Entities;
 
-namespace Domain.User
+namespace Data.Users
 {
     public class UserConfiguration : IEntityTypeConfiguration<User>
     {

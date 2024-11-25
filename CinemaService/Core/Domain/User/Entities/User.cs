@@ -1,4 +1,4 @@
-namespace Domain.User.Entities;
+namespace Domain.Users.Entities;
 public class User
 {
     public int Id { get; set; }

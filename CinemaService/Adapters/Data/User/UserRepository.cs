@@ -1,8 +1,7 @@
-using Data;
-using Domain.User.Entities;
-using Domain.User.Ports;
+using Domain.Users.Ports;
+using Domain.Users.Entities;
 
-namespace Domain.User
+namespace Data.Users
 {
     public class UserRepository : IUserRepository
     {
