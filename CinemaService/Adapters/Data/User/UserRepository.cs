@@ -1,25 +1,30 @@
-using Domain.Entities;
+using Data;
+using Domain.User.Entities;
+using Domain.User.Ports;
 
 namespace Domain.User
 {
-    public class UserRepository
+    public class UserRepository : IUserRepository
     {
-        private readonly DatabaseContext _context;
+        private readonly CinemaDbContext _context;
 
-        public UserRepository(DatabaseContext context)
+        public UserRepository(CinemaDbContext context)
         {
             _context = context;
         }
 
-        public async Task AddUserAsync(User user)
+        // Implementação de CreateUserAsync
+        public async Task<User> CreateUserAsync(User user)
         {
-            _context.Users.Add(user);
+            await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
+            return user;
         }
 
-        public async Task<bool> UserExistsAsync(string username, string email)
+        // Implementação de GetUserByIdAsync
+        public async Task<User> GetUserByIdAsync(int id)
         {
-            return await _context.Users.AnyAsync(u => u.Username == username || u.Email == email);
+            return await _context.Users.FindAsync(id);
         }
     }
 }

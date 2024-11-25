@@ -1,8 +1,8 @@
-using Domain.Users.Entities;
+using Domain.User.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Domain.Users
+namespace Domain.User
 {
     public class UserConfiguration : IEntityTypeConfiguration<User>
     {
@@ -20,7 +20,7 @@ namespace Domain.Users
                 .IsRequired()
                 .HasMaxLength(255); // Tamanho máximo para emails
 
-            builder.Property(u => u.PasswordHash)
+            builder.Property(u => u.Password)
                 .IsRequired();
 
             builder.Property(u => u.CreatedAt)
@@ -28,12 +28,6 @@ namespace Domain.Users
 
             builder.Property(u => u.UpdatedAt)
                 .IsRequired(false);
-
-            // Relacionamentos (se aplicável)
-            builder.HasMany(u => u.Bookings) // Supondo que User tem várias reservas
-                .WithOne(b => b.User)
-                .HasForeignKey(b => b.UserId)
-                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

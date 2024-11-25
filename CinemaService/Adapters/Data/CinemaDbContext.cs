@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Domain.User;
+using Domain.User.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Data
 {

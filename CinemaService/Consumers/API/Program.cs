@@ -1,3 +1,6 @@
+using Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -16,10 +19,10 @@ builder.Services.AddDbContext<CinemaDbContext>(options => options.UseNpgsql(conn
 
 #endregion
 
-builder.Services.AddExceptionHandler<ErrorHandlingMiddleware>();
+// builder.Services.AddExceptionHandler<ErrorHandlingMiddleware>();
 builder.Services.AddProblemDetails();
 
-builder.Services.AddAutoMapper(typeof(GuestMapping));
+// builder.Services.AddAutoMapper(typeof(GuestMapping));//TODO
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

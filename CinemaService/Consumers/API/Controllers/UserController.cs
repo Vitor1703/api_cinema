@@ -1,5 +1,4 @@
-using Application.Services;
-using Domain.Entities;
+using Domain.User.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers

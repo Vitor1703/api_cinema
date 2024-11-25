@@ -1,5 +1,4 @@
 ﻿using Core.Application.User.Requests;
-using Core.Application.User.Responses;
 
 namespace Core.Application.User.Ports
 {
