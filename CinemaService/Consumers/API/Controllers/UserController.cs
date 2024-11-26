@@ -34,18 +34,10 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<UserResponse>> Post(CreateUserRequest request)
+        public async Task<ActionResult<UserDto>> Post(CreateUserRequest request)
         {
-            try
-            {
-                var response = await _userManager.CreateUserAsync(request);
-                return Created("", response);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error creating user");
-                return BadRequest(new { Error = ex.Message });
-            }
+            var user = await _userManager.CreateUserAsync(request);
+            return Created("", user);
         }
 
         [HttpPost("login")]

@@ -16,11 +16,11 @@ namespace Application.Users
             _userRepository = userRepository;
         }
 
-        public async Task<UserResponse> CreateUserAsync(CreateUserRequest request)
+        public async Task<UserDto> CreateUserAsync(CreateUserRequest request)
         {
             // Verificar se usuário já existe
-            var existingUser = await _userRepository.GetByEmailOrUsernameAsync(request.Email, request.Username);
-            if (existingUser != null)
+            var exists = await _userRepository.GetByEmailOrUsernameAsync(request.Email, request.Username);
+            if (exists != null)
             {
                 throw new InvalidOperationException("Username or email already exists.");
             }
@@ -31,18 +31,20 @@ namespace Application.Users
                 Username = request.Username,
                 Name = request.Name,
                 Email = request.Email,
-                Password = request.Password,
+                Password = request.Password, // Certifique-se de que está armazenando de forma segura
                 CreatedAt = DateTime.UtcNow
             };
 
             await _userRepository.CreateUserAsync(user);
 
-            return new UserResponse(new UserDto
+            // Retornar o DTO diretamente
+            return new UserDto
             {
                 Id = user.Id,
                 Username = user.Username,
                 Email = user.Email,
-            });
+                CreatedAt = user.CreatedAt
+            };
         }
 
         public async Task<UserResponse> GetUserByIdAsync(int id)
