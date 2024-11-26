@@ -1,9 +1,12 @@
 using Application.Movies;
 using Application.Movies.Ports;
+using Application.Rooms;
+using Application.Rooms.Ports;
 using Application.Users;
 using Application.Users.Ports;
 using Data;
 using Domain.Movies.Ports;
+using Domain.Rooms.Ports;
 using Domain.Users.Ports;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,6 +23,9 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 builder.Services.AddScoped<IMovieManager, MovieManager>();
 builder.Services.AddScoped<IMovieRepository, MovieRepository>();
+
+builder.Services.AddScoped<IRoomManager, RoomManager>();
+builder.Services.AddScoped<IRoomRepository, RoomRepository>();
 
 #endregion
 
