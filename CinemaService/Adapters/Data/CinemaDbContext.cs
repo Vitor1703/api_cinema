@@ -1,6 +1,7 @@
 ﻿using Data.Users;
 using Domain.Movies.Entities;
 using Domain.Rooms.Entities;
+using Domain.Sessions.Entities;
 using Domain.Users.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,6 +17,8 @@ namespace Data
         public DbSet<Movie>? Movies { get; set; }
 
         public DbSet<Room>? Rooms { get; set; }
+
+        public DbSet<Session>? Sessions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
