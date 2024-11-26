@@ -40,6 +40,9 @@ namespace Data.Movies
             // Configurações para a propriedade 'IsActive'
             builder.Property(m => m.IsActive)
                 .IsRequired();
+
+            builder.Property(m => m.ImageUrl)
+                .IsRequired(false);
         }
     }
 }

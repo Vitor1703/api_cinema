@@ -40,9 +40,10 @@ namespace Application.Movies
                 Title = request.Title,
                 Description = request.Description,
                 Duration = request.Duration,
-                AverageRating = 0, // Inicialmente sem avaliações
+                AverageRating = 0,
                 IsShowing = request.IsShowing,
-                IsActive = true // Filmes são ativos por padrão
+                IsActive = true,
+                ImageUrl = request.ImageUrl // Novo campo
             };
 
             await _movieRepository.AddAsync(movie);
@@ -60,6 +61,7 @@ namespace Application.Movies
             movie.Description = request.Description;
             movie.Duration = request.Duration;
             movie.IsShowing = request.IsShowing;
+            movie.ImageUrl = request.ImageUrl;
 
             await _movieRepository.UpdateAsync(movie);
         }

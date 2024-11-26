@@ -9,5 +9,6 @@ namespace Domain.Movies.Entities
         public double AverageRating { get; set; } // Avaliação média
         public bool IsShowing { get; set; } // Está em cartaz
         public bool IsActive { get; set; } // Está ativo
+        public string ImageUrl { get; set; }
     }
 }

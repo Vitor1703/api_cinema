@@ -6,6 +6,7 @@
         public string Description { get; set; }
         public int Duration { get; set; }
         public bool IsShowing { get; set; }
+        public string ImageUrl { get; set; } // Novo campo
     }
     
     public class UpdateMovieRequest
@@ -14,5 +15,6 @@
         public string Description { get; set; }
         public int Duration { get; set; }
         public bool IsShowing { get; set; }
+        public string ImageUrl { get; set; } // Novo campo
     }
 }

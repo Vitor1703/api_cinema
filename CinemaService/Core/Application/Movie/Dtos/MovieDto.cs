@@ -11,6 +11,7 @@ namespace Application.Movies.Dtos
         public double AverageRating { get; set; }
         public bool IsShowing { get; set; }
         public bool IsActive { get; set; }
+        public string ImageUrl { get; set; } // Novo campo
 
         public MovieDto(Movie movie)
         {
@@ -21,6 +22,7 @@ namespace Application.Movies.Dtos
             AverageRating = movie.AverageRating;
             IsShowing = movie.IsShowing;
             IsActive = movie.IsActive;
+            ImageUrl = movie.ImageUrl;
         }
     }
 }
