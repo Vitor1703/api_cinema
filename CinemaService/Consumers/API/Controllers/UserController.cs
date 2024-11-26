@@ -20,12 +20,7 @@ namespace API.Controllers
             _logger = logger;
             _userManager = userManager;
         }
-
-        /// <summary>
-        /// Obtém os detalhes de um usuário pelo ID.
-        /// </summary>
-        /// <param name="id">O identificador único do usuário.</param>
-        /// <returns>Detalhes do usuário ou NotFound caso não exista.</returns>
+        
         [HttpGet("{id}")]
         public async Task<ActionResult<UserResponse>> Get(int id)
         {
@@ -37,11 +32,6 @@ namespace API.Controllers
             return NotFound();
         }
 
-        /// <summary>
-        /// Cria um novo usuário com os dados fornecidos.
-        /// </summary>
-        /// <param name="request">Os dados necessários para criar o usuário.</param>
-        /// <returns>Os detalhes do usuário criado ou BadRequest em caso de falha.</returns>
         [HttpPost]
         public async Task<ActionResult<UserResponse>> Post(CreateUserRequest request)
         {

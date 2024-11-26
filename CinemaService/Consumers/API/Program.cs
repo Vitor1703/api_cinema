@@ -1,4 +1,7 @@
+using Application.Users;
+using Application.Users.Ports;
 using Data;
+using Domain.Users.Ports;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +11,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 #region
+
+builder.Services.AddScoped<IUserManager, UserManager>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 #endregion
 

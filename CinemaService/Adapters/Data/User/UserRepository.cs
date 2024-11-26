@@ -1,29 +1,30 @@
-using Domain.Users.Ports;
+using Data;
 using Domain.Users.Entities;
+using Domain.Users.Ports;
+using Microsoft.EntityFrameworkCore;
 
-namespace Data.Users
+public class UserRepository : IUserRepository
 {
-    public class UserRepository : IUserRepository
+    private readonly CinemaDbContext _context;
+
+    public UserRepository(CinemaDbContext context)
     {
-        private readonly CinemaDbContext _context;
+        _context = context;
+    }
 
-        public UserRepository(CinemaDbContext context)
-        {
-            _context = context;
-        }
+    public async Task<User> GetByIdAsync(int id)
+    {
+        return await _context.Users.FindAsync(id);
+    }
 
-        // Implementação de CreateUserAsync
-        public async Task<User> CreateUserAsync(User user)
-        {
-            await _context.Users.AddAsync(user);
-            await _context.SaveChangesAsync();
-            return user;
-        }
+    public async Task<User> GetByEmailOrUsernameAsync(string email, string username)
+    {
+        return await _context.Users.FirstOrDefaultAsync(u => u.Email == email || u.Username == username);
+    }
 
-        // Implementação de GetUserByIdAsync
-        public async Task<User> GetUserByIdAsync(int id)
-        {
-            return await _context.Users.FindAsync(id);
-        }
+    public async Task CreateUserAsync(User user)
+    {
+        await _context.Users.AddAsync(user);
+        await _context.SaveChangesAsync();
     }
 }

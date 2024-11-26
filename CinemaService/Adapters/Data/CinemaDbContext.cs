@@ -6,9 +6,10 @@ namespace Data
 {
     public class CinemaDbContext : DbContext
     {
+
         public CinemaDbContext(DbContextOptions<CinemaDbContext> options) : base(options) { }
 
-        public virtual DbSet<User> Users { get; set; }
+        public DbSet<User>? Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

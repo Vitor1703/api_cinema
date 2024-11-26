@@ -1,70 +1,65 @@
-﻿// using Application.Common;
-// using Application.User.Dtos;
-// using Application.User.Ports;
-// using Application.User.Requests;
-// using Domain.User.Entities;
-// using Domain.User.Ports;
+﻿using Application.Users.Ports;
+using Application.Users.Requests;
+using Application.Responses;
+using Domain.Users.Entities;
+using Domain.Users.Ports;
+using Application.Users.Dtos;
 
-// namespace Core.Application.User
-// {
-//     public class UserManager : IUserManager
-//     {
-//         private readonly UserRepository _userRepository;
+namespace Application.Users
+{
+    public class UserManager : IUserManager
+    {
+        private readonly IUserRepository _userRepository;
 
-//         public UserManager(UserRepository userRepository)
-//         {
-//             _userRepository = userRepository;
-//         }
+        public UserManager(IUserRepository userRepository)
+        {
+            _userRepository = userRepository;
+        }
 
-//         public async Task<UserResponse> CreateUserAsync(CreateUserRequest request)
-//         {
-//             // Verificar se usuário já existe
-//             var exists = await _userRepository.UserExistsAsync(request.Username, request.Email);
-//             if (exists)
-//             {
-//                 return new UserResponse
-//                 {
-//                     Message = "Username or email already exists."
-//                 };
-//             }
+        public async Task<UserResponse> CreateUserAsync(CreateUserRequest request)
+        {
+            // Verificar se usuário já existe
+            var existingUser = await _userRepository.GetByEmailOrUsernameAsync(request.Email, request.Username);
+            if (existingUser != null)
+            {
+                throw new InvalidOperationException("Username or email already exists.");
+            }
 
-//             // Criar novo usuário
-//             var user = new Domain.Entities.User
-//             {
-//                 Username = request.Username,
-//                 Name = request.Name,
-//                 Email = request.Email,
-//                 Password = BCrypt.Net.BCrypt.HashPassword(request.Password)
-//             };
+            // Criar novo usuário
+            var user = new User
+            {
+                Username = request.Username,
+                Name = request.Name,
+                Email = request.Email,
+                Password = BCrypt.Net.BCrypt.HashPassword(request.Password),
+                CreatedAt = DateTime.UtcNow
+            };
 
-//             await _userRepository.AddUserAsync(user);
+            await _userRepository.CreateUserAsync(user);
 
-//             return new UserResponse
-//             {
-//                 Id = user.Id,
-//                 Username = user.Username,
-//                 Name = user.Name,
-//                 Email = user.Email,
-//                 Message = "User created successfully."
-//             };
-//         }
+            return new UserResponse(new UserDto
+            {
+                Id = user.Id,
+                Username = user.Username,
+                Email = user.Email,
+            });
+        }
 
-//         public async Task<UserResponse> GetUserByIdAsync(int id)
-//         {
-//             var user = await _userRepository.GetUserByIdAsync(id);
-//             if (user == null)
-//             {
-//                 return null;
-//             }
+        public async Task<UserResponse> GetUserByIdAsync(int id)
+        {
+            var user = await _userRepository.GetByIdAsync(id);
+            
+            if (user == null)
+            {
+                throw new KeyNotFoundException("User not found.");
+            }
 
-//             return new UserResponse
-//             {
-//                 Id = user.Id,
-//                 Username = user.Username,
-//                 Name = user.Name,
-//                 Email = user.Email,
-//                 Message = "User retrieved successfully."
-//             };
-//         }
-//     }
-// }
+            return new UserResponse(new UserDto
+            {
+                Id = user.Id,
+                Username = user.Username,
+                Email = user.Email,
+            });
+        }
+    }
+}
