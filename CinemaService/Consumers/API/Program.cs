@@ -4,12 +4,15 @@ using Application.Rooms;
 using Application.Rooms.Ports;
 using Application.Sessions;
 using Application.Sessions.Ports;
+using Application.Tickets;
+using Application.Tickets.Ports;
 using Application.Users;
 using Application.Users.Ports;
 using Data;
 using Domain.Movies.Ports;
 using Domain.Rooms.Ports;
 using Domain.Sessions.Ports;
+using Domain.Tickets.Ports;
 using Domain.Users.Ports;
 using Microsoft.EntityFrameworkCore;
 
@@ -32,6 +35,9 @@ builder.Services.AddScoped<IRoomRepository, RoomRepository>();
 
 builder.Services.AddScoped<ISessionManager, SessionManager>();
 builder.Services.AddScoped<ISessionRepository, SessionRepository>();
+
+builder.Services.AddScoped<ITicketManager, TicketManager>();
+builder.Services.AddScoped<ITicketRepository, TicketRepository>();
 
 #endregion
 

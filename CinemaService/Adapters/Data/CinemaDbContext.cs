@@ -2,6 +2,7 @@
 using Domain.Movies.Entities;
 using Domain.Rooms.Entities;
 using Domain.Sessions.Entities;
+using Domain.Tickets.Entities;
 using Domain.Users.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,6 +20,8 @@ namespace Data
         public DbSet<Room>? Rooms { get; set; }
 
         public DbSet<Session>? Sessions { get; set; }
+
+        public DbSet<Ticket>? Tickets { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
