@@ -62,24 +62,22 @@ namespace Application.Users
             });
         }
 
-        public async Task<UserResponse> LoginAsync(LoginRequest request)
+        public async Task<UserDto> LoginAsync(LoginRequest request)
         {
-            // Verifica no banco se há um usuário com username e senha correspondentes
             var user = await _userRepository.GetByUsernameAndPasswordAsync(request.Username, request.Password);
 
             if (user == null)
             {
-                // Lança uma exceção caso nenhum usuário seja encontrado
                 throw new UnauthorizedAccessException("Invalid username or password.");
             }
 
-            // Retorna os dados do usuário encontrado
-            return new UserResponse(new UserDto
+            return new UserDto
             {
                 Id = user.Id,
                 Username = user.Username,
-                Email = user.Email
-            });
+                Email = user.Email,
+                CreatedAt = user.CreatedAt
+            };
         }
     }
 }

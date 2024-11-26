@@ -1,4 +1,5 @@
 using Application.Responses;
+using Application.Users.Dtos;
 using Application.Users.Ports;
 using Application.Users.Requests;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +21,7 @@ namespace API.Controllers
             _logger = logger;
             _userManager = userManager;
         }
-        
+
         [HttpGet("{id}")]
         public async Task<ActionResult<UserResponse>> Get(int id)
         {
@@ -48,12 +49,12 @@ namespace API.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<UserResponse>> Login([FromBody] LoginRequest request)
+        public async Task<ActionResult<UserDto>> Login([FromBody] LoginRequest request)
         {
             try
             {
-                var response = await _userManager.LoginAsync(request);
-                return Ok(response);
+                var user = await _userManager.LoginAsync(request);
+                return Ok(user);
             }
             catch (UnauthorizedAccessException ex)
             {

@@ -1,4 +1,5 @@
 ﻿using Application.Responses;
+using Application.Users.Dtos;
 using Application.Users.Requests;
 
 namespace Application.Users.Ports
@@ -9,6 +10,6 @@ namespace Application.Users.Ports
 
         Task<UserResponse> GetUserByIdAsync(int id);
 
-        Task<UserResponse> LoginAsync(LoginRequest request);
+        Task<UserDto> LoginAsync(LoginRequest request);
     }
 }
