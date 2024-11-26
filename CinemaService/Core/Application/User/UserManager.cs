@@ -31,7 +31,7 @@ namespace Application.Users
                 Username = request.Username,
                 Name = request.Name,
                 Email = request.Email,
-                Password = BCrypt.Net.BCrypt.HashPassword(request.Password),
+                Password = request.Password,
                 CreatedAt = DateTime.UtcNow
             };
 
@@ -48,7 +48,7 @@ namespace Application.Users
         public async Task<UserResponse> GetUserByIdAsync(int id)
         {
             var user = await _userRepository.GetByIdAsync(id);
-            
+
             if (user == null)
             {
                 throw new KeyNotFoundException("User not found.");
@@ -59,6 +59,26 @@ namespace Application.Users
                 Id = user.Id,
                 Username = user.Username,
                 Email = user.Email,
+            });
+        }
+
+        public async Task<UserResponse> LoginAsync(LoginRequest request)
+        {
+            // Verifica no banco se há um usuário com username e senha correspondentes
+            var user = await _userRepository.GetByUsernameAndPasswordAsync(request.Username, request.Password);
+
+            if (user == null)
+            {
+                // Lança uma exceção caso nenhum usuário seja encontrado
+                throw new UnauthorizedAccessException("Invalid username or password.");
+            }
+
+            // Retorna os dados do usuário encontrado
+            return new UserResponse(new UserDto
+            {
+                Id = user.Id,
+                Username = user.Username,
+                Email = user.Email
             });
         }
     }

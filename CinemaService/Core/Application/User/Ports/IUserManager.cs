@@ -8,5 +8,7 @@ namespace Application.Users.Ports
         Task<UserResponse> CreateUserAsync(CreateUserRequest request);
 
         Task<UserResponse> GetUserByIdAsync(int id);
+
+        Task<UserResponse> LoginAsync(LoginRequest request);
     }
 }

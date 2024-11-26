@@ -6,6 +6,7 @@ namespace Domain.Users.Ports
     {
         Task<User> GetByIdAsync(int id);
         Task<User> GetByEmailOrUsernameAsync(string email, string username);
+        Task<User> GetByUsernameAndPasswordAsync(string username, string password);
         Task CreateUserAsync(User user);
     }
 }

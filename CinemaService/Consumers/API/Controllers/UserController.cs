@@ -46,5 +46,19 @@ namespace API.Controllers
                 return BadRequest(new { Error = ex.Message });
             }
         }
+
+        [HttpPost("login")]
+        public async Task<ActionResult<UserResponse>> Login([FromBody] LoginRequest request)
+        {
+            try
+            {
+                var response = await _userManager.LoginAsync(request);
+                return Ok(response);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(new { Error = ex.Message });
+            }
+        }
     }
 }
