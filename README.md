@@ -32,3 +32,6 @@ O sistema é construído em **.NET Core**, com **Entity Framework Core** como OR
    - Cadastro de preços.
    - Atualização e desativação.
    - Consulta de preços disponíveis.
+
+Link da documentação e diagramas:
+https://docs.google.com/document/d/1-zI7PFKvxIaQ973MHDikGujv2Q4kJOmvPlvjtfvRVo4/edit?tab=t.0#heading=h.jhyfgp1vwr0
