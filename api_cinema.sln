@@ -20,6 +20,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "CinemaService\\Adap
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "CinemaService\\Core\\Shared\\Shared.csproj", "{CA8AF7F8-8A52-4BD2-AB7F-6AED23894D4F}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdaptersTests", "BookingService\Tests\AdaptersTests\AdaptersTests.csproj", "{1A48A9A0-48FD-4FD5-89D8-64D6629F03B8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApplicationTests", "BookingService\Tests\ApplicationTests\ApplicationTests.csproj", "{794E7679-1414-4A93-9046-8D50F6BE04FC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DomainTests", "BookingService\Tests\Domain\DomainTests\DomainTests.csproj", "{294FA24E-BABE-4F70-BF2C-BECB8D71C5CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApplicationTest", "ApplicationTest\ApplicationTest.csproj", "{E8D717F6-C504-44E0-9115-69D42395795F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
