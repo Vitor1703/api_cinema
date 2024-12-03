@@ -2,9 +2,7 @@ using Moq;
 using Application.Tickets;
 using Domain.Tickets.Entities;
 using Domain.Tickets.Ports;
-using Application.Tickets.Dtos;
 using Application.Tickets.Requests;
-using NUnit.Framework;
 
 namespace ApplicationTest
 {
