@@ -1,5 +1,4 @@
 using Moq;
-using NUnit.Framework;
 using Application.Users;
 using Domain.Users.Entities;
 using Domain.Users.Ports;
@@ -9,6 +8,7 @@ using Application.Users.Requests;
 
 namespace ApplicationTest
 {
+    [TestFixture]
     public class UserManagerTests
     {
         private UserManager _userManager;
@@ -45,8 +45,8 @@ namespace ApplicationTest
         {
             var request = new CreateUserRequest
             {
-                Username = "newuser",
-                Email = "newuser@example.com",
+                Username = "testuser",
+                Email = "testuser@example.com",
                 Password = "password123"
             };
 
@@ -69,12 +69,16 @@ namespace ApplicationTest
             };
 
             var fakeRepo = new Mock<IUserRepository>();
-            fakeRepo.Setup(x => x.GetByEmailOrUsernameAsync(request.Email, request.Username)).ReturnsAsync(_fakeUser);
+            fakeRepo.Setup(x => x.GetByEmailOrUsernameAsync(request.Email, request.Username))
+                .ReturnsAsync(_fakeUser);
 
             var userManagerWithConflict = new UserManager(fakeRepo.Object);
-            var response = await userManagerWithConflict.CreateUserAsync(request);
 
-            Assert.That(response, Is.Null);
+            Assert.ThrowsAsync<InvalidOperationException>(async () =>
+            {
+                await userManagerWithConflict.CreateUserAsync(request);
+            });
+
             Console.WriteLine("Conflict detected for username or email.");
         }
 
@@ -87,18 +91,21 @@ namespace ApplicationTest
                 Password = "password123"
             };
 
+            // Configura o mock para simular o comportamento correto
             var fakeRepo = new Mock<IUserRepository>();
-            fakeRepo.Setup(x => x.GetByEmailOrUsernameAsync(It.IsAny<string>(), loginRequest.Username))
-                .ReturnsAsync(_fakeUser);
+            fakeRepo.Setup(x => x.GetByUsernameAndPasswordAsync(loginRequest.Username, loginRequest.Password))
+                .ReturnsAsync(_fakeUser); // Retorna o usuário esperado
 
             var userManagerWithLogin = new UserManager(fakeRepo.Object);
             var response = await userManagerWithLogin.LoginAsync(loginRequest);
 
+            // Verifica se o login foi bem-sucedido
             Assert.That(response, Is.Not.Null);
             Assert.That(response.Username, Is.EqualTo(_fakeUser.Username));
             Assert.That(response.Email, Is.EqualTo(_fakeUser.Email));
             Console.WriteLine("Login successful!");
         }
+
 
         [Test]
         public async Task Should_Return_Error_If_User_Not_Found_On_Login()
@@ -135,15 +142,18 @@ namespace ApplicationTest
         }
 
         [Test]
-        public async Task Should_Return_Null_If_User_Not_Found_By_Id()
+        public async Task Should_Return_Error_If_User_Not_Found_By_Id()
         {
             var fakeRepo = new Mock<IUserRepository>();
             fakeRepo.Setup(x => x.GetByIdAsync(It.IsAny<int>())).ReturnsAsync((User?)null);
 
             var userManagerWithNoUser = new UserManager(fakeRepo.Object);
-            var response = await userManagerWithNoUser.GetUserByIdAsync(99);
 
-            Assert.That(response, Is.Null);
+            Assert.ThrowsAsync<KeyNotFoundException>(async () =>
+            {
+                await userManagerWithNoUser.GetUserByIdAsync(99);
+            });
+
             Console.WriteLine("No user found for given ID.");
         }
     }
