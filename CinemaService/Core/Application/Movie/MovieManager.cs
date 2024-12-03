@@ -43,7 +43,7 @@ namespace Application.Movies
                 AverageRating = 0,
                 IsShowing = request.IsShowing,
                 IsActive = true,
-                ImageUrl = request.ImageUrl // Novo campo
+                ImageUrl = request.ImageUrl
             };
 
             await _movieRepository.AddAsync(movie);

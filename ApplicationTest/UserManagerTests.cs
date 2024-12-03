@@ -136,8 +136,8 @@ namespace ApplicationTest
             var response = await _userManager.GetUserByIdAsync(userId);
 
             Assert.That(response, Is.Not.Null);
-            Assert.That(response.Data.Id, Is.EqualTo(_fakeUser.Id)); // Acessando 'Id' dentro de 'Data'
-            Assert.That(response.Data.Username, Is.EqualTo(_fakeUser.Username)); // Acessando 'Username' dentro de 'Data'
+            Assert.That(response.Data.Id, Is.EqualTo(_fakeUser.Id));
+            Assert.That(response.Data.Username, Is.EqualTo(_fakeUser.Username));
             Console.WriteLine("User retrieved successfully!");
         }
 
