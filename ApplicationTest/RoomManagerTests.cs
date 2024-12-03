@@ -2,9 +2,7 @@ using Moq;
 using Application.Rooms;
 using Domain.Rooms.Entities;
 using Domain.Rooms.Ports;
-using Application.Rooms.Dtos;
 using Application.Rooms.Requests;
-using NUnit.Framework;
 
 namespace ApplicationTest
 {
